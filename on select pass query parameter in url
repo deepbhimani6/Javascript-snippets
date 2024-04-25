@@ -1,0 +1,39 @@
+# on select pass query parameter in URL 
+
+
+// Function to toggle nested ul
+$(".drop-down .selected > div").click(function (e) {
+  e.stopPropagation(); // Prevent event from bubbling up to document
+  var $options = $(".drop-down .options");
+  $options.toggle();
+  $options.parents('.drop-down').toggleClass('drop-list-show');
+});
+
+// Function to select options, update URL query parameters, and hide options after selection
+$(".drop-down .options ul li a").click(function (e) {
+  e.preventDefault(); // Prevent the default link behavior
+  e.stopPropagation(); // Prevent event from bubbling up to document
+
+  var text = $(this).html();
+  var queryParams = {
+    search_text: "",
+    type: text
+  };
+  var queryString = $.param(queryParams);
+  var newUrl = window.location.pathname + '?' + queryString;
+  window.location.href = newUrl;  
+
+  var $selectedDiv = $(".drop-down .selected > div span");
+  $selectedDiv.html(text).addClass('option-text').attr('data-filter', text);
+  $selectedDiv.parents('.drop-list-show').removeClass('drop-list-show');
+  $(".drop-down .options").hide();
+});
+
+// Function to hide options if clicked anywhere else on the page
+$(document).on('click', function (e) {
+  var $clicked = $(e.target);
+  if (!$clicked.closest(".drop-down").length) {
+    $(".drop-down .options").hide();
+    $(".drop-down").removeClass('drop-list-show');
+  }
+});

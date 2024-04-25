@@ -1,0 +1,6 @@
+$(function () {
+  $(".contact-info").each(function () {
+    var $this = $(this);
+    $this.html($this.html().replace(/&nbsp;/g, ''));
+  });
+});

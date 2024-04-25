@@ -1,0 +1,2 @@
+var header = $("header");
+$(".fake-header").css("height", header.innerHeight());

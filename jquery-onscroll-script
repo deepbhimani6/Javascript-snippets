@@ -1,0 +1,10 @@
+window.onscroll = function () {
+  let scroll = document.documentElement.scrollTop;
+  var header = $("header");
+
+  if (scroll >= 50) {
+    header.addClass("header-fixed");
+  } else {
+    header.removeClass("header-fixed");
+  }
+};

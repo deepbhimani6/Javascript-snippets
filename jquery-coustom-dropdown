@@ -1,0 +1,206 @@
+// Style
+
+<style>
+.drop-down {
+  width: 100%;
+  max-width: 467px;
+  border: 1px solid #FF8900;
+  border-radius: 16px;
+  height: 56px;
+  position: relative;
+}
+
+.drop-down.drop-list-show {
+  border-radius: 16px 16px 0 0;
+  border-bottom: transparent;
+}
+
+
+.drop-down .selected > div >.drop-icon {
+  transform: rotate(0deg);
+}
+
+.drop-down.drop-list-show .selected > div >.drop-icon {
+  transform: rotate(180deg);
+}
+
+.option-text {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: block;
+  transition: all 500ms ease-in-out;
+  text-transform: capitalize;
+}
+
+.drop-dwon-listing ul>li>a {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0 32px;
+  display: block;
+  transition: all 500ms ease-in-out;
+}
+
+
+.drop-dwon-listing ul {
+  opacity: 0%;
+  visibility: hidden;
+  transition: all 500ms ease-in-out;
+}
+
+.drop-dwon-listing.open-menu-drop {
+  border-bottom: transparent;
+  border-radius: 16px 16px 0 0;
+}
+
+.drop-dwon-listing.open-menu-drop ul {
+  opacity: 100%;
+  visibility: visible;
+}
+
+.selected>div {
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #444444;
+  font-style: italic;
+  cursor: pointer;
+  width: 100%;
+  padding: 18px 32px 18px 24px;
+}
+
+.options{
+  position: absolute;
+  left: -1px;
+  top: 55px;
+  z-index: 99;
+  padding: 18px 0 22px;
+  border-radius: 0px 0px 16px 16px;
+  border: 1px solid #FF8900;
+  border-top: transparent;
+  width: calc(100% + 2px);
+  background: black;
+}
+
+.options ul {
+  max-height: 335px;
+  overflow-y: auto;
+  padding: 0 32px;
+}
+
+.options ul::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+.options ul>li>a {
+  display: block;
+  transition: all 500ms ease-in-out;
+}
+
+.options ul>li>a:hover {
+  color: #FF8900;
+}
+
+.options ul>li:not(:first-child) {
+  margin-top: 43px;
+}
+
+.drop-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.tab-width-dtop .drop-down {
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 1199px) {
+  .tab-width-dtop {
+    flex-direction: column;
+  }
+
+  .tab-width-dtop .drop-down {
+    margin-bottom: 40px;
+  }
+
+  .tab-width-dtop .drop-down {
+    margin-bottom: 40px;
+    margin-left: 0;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .selected>div {
+    padding-left: 18px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .tab-width-dtop .drop-down {
+    margin-bottom: 40px;
+    max-width:100%;
+  }
+}
+</style>
+
+// HTML 
+<div class="drop-down">
+<div class="selected">
+  <div class="flex items-center justify-between">
+    <label for="resource_topic" class="sr-only">Type: </label>
+    <span selected>Browse by Type</span>
+    <div class="drop-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" class="w-full h-full" height="12" viewBox="0 0 14 12" fill="none">
+        <path d="M7 12L0.0717975 -1.30507e-06L13.9282 -9.36995e-08L7 12Z" fill="#FF8900" />
+      </svg>
+    </div>
+  </div>
+</div>
+<div style="display: none;" class="options">
+  <ul id="resource_type" class="resource_filter">
+    {% for choice in types %}
+    {% if choice.name == request.query_dict.type %}
+    <li><a  href="javascript:void(0);" selected="selected" value="{{ choice.name }}">{{ choice.name }}</a></li>
+    {% else %}
+    <li><a  href="javascript:void(0);" selected="selected" value="{{ choice.name }}">{{ choice.name }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if request.query_dict.type == "Blogs" %}
+    <li><a href="javascript:void(0);" selected="selected" value="Blogs">Blogs</a></li>
+    {% else %}
+    <li><a href="javascript:void(0);" value="Blogs">Blogs</a></li>
+    {% endif %}
+  </ul>
+</div>
+</div>
+
+
+  // Script 
+
+//TOGGLING NESTED ul
+$(".drop-down .selected > div").click(function () {
+$(".drop-down .options").toggle();
+$(".drop-down .options").parents('.drop-down').toggleClass('drop-list-show');
+});
+//SELECT OPTIONS AND HIDE OPTION AFTER SELECTION
+$(".drop-down .options ul li a").click(function () {
+var text = $(this).html();
+$(".drop-down .selected > div span").html(text).addClass('option-text');
+$(".drop-down .selected > div span").html(text).parents('.drop-list-show').removeClass('drop-list-show');
+$(".drop-down .options").hide();
+});
+//HIDE OPTIONS IF CLICKED ANYWHERE ELSE ON PAGE
+$(document).bind('click', function (e) {
+var $clicked = $(e.target);
+if (!$clicked.parents().hasClass("drop-down")){
+  $(".drop-down .options").hide();
+  $(".drop-down .options").parents('.drop-down').removeClass('drop-list-show');
+}
+});

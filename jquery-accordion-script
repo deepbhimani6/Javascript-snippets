@@ -1,0 +1,55 @@
+<div class="accordion accordion-flush">
+  <div class="accordion-item show">
+    <div class="accordion-header panel-head d-flex align-items-center justify-content-between">
+      <button class="bg-transparent shadow-none accordion-button text-start">What is web design?</button>
+      <div class="icon-img d-flex align-items-center justify-content-center flex-shrink-0 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus h-100 w-100" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 5l0 14" />
+          <path d="M5 12l14 0" />
+        </svg>
+      </div>
+    </div>
+    <div class="accordion-collapse d-none">
+      <div class="px-0 pt-0 accordion-body">
+        <p class="mb-0">Web design refers to the process of creating visually appealing and functional websites. It involves the layout, color schemes, typography, graphics, and overall user experience (UX) design of a website.</p>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <div class="accordion-header panel-head d-flex align-items-center justify-content-between">
+      <button class="bg-transparent shadow-none accordion-button text-start">What does the web design process involve?</button>
+      <div class="icon-img d-flex align-items-center justify-content-center flex-shrink-0 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus h-100 w-100" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 5l0 14" />
+          <path d="M5 12l14 0" />
+        </svg>
+      </div>
+    </div>
+    <div class="accordion-collapse d-none">
+      <div class="px-0 pt-0 accordion-body">
+        <p class="mb-0">The web design process typically involves several stages, including gathering requirements, creating wireframes and mockups, designing the visual elements, developing responsive layouts, and conducting usability testing. It also encompasses content creation and search engine optimization (SEO) considerations.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+$(".accordion-item.show .accordion-collapse").slideDown();
+
+$(".panel-head").click(function () {
+if ($(this).parents(".accordion-item").hasClass("show")) {
+  $(this).parents(".accordion-item").removeClass("show");
+  $(this).parents().children(".accordion-collapse").slideUp();
+} else {
+  $(".accordion-item").removeClass("show");
+  $(".accordion-item .accordion-collapse").slideUp();
+  $(this).parents(".accordion-item").addClass("show");
+  $(this).parents().children(".accordion-collapse").slideDown();
+}
+});

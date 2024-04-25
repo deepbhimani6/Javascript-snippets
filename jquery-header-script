@@ -1,0 +1,32 @@
+// Responsive Header Menu
+$(".navbar-toggler").click(function () {
+  $(".menu").toggleClass("open");
+});
+
+// Responsive Mega Menu
+$(".menu-close").click(function () {
+    $(".mega-menu > a").removeClass("open");
+    $("body").removeClass("fixed-bg");
+    $("header").removeClass("mega-menu-open");
+    $(".mega-menu-content").removeClass("opacity-100 visible");
+    $(".tab-content").removeClass("opacity-100 visible");
+  });
+
+  $(".mega-menu > a").click(function () {
+    if (innerWidth > 991) $("body").toggleClass("fixed-bg");
+    $(this).toggleClass("open");
+    $("header").toggleClass("mega-menu-open");
+    $(".mega-menu-content").toggleClass("opacity-100 visible");
+  });
+
+  $(".nav > button").click(function () {
+    if (innerWidth <= 991) $(".tab-content").addClass("opacity-100 visible");
+  });
+
+  $(".mega-menu-header .back-to-menu").click(function () {
+    $(".mega-menu-content").removeClass("opacity-100 visible");
+  });
+
+  $(".tab-header .back-to-menu").click(function () {
+    $(".tab-content").removeClass("opacity-100 visible");
+  });
