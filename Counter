@@ -1,0 +1,25 @@
+<div class="countertheme">
+  <h2 class="counter">2007</h2>
+</div>
+
+<script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+
+<script>
+  const counterUp = window.counterUp.default
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.counter').forEach(trigger => { 
+      new IntersectionObserver((entries, observer) => { 
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            console.log(trigger);
+            counterUp(trigger, { duration: 1500 });
+          }
+        });
+      },
+                               { 
+        threshold: 0 
+      }).observe(trigger);
+    });
+  });
+</script>
